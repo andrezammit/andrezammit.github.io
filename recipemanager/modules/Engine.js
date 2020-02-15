@@ -98,7 +98,7 @@ const Engine = (function () {
     function uploadCloudDatabase(zipData, newDbVersion, callback) {
         callback = callback || null;
 
-        var fileData = zipData.toString('base64');
+        var fileData = btoa(zipData);
 
         GoogleAPI.updateDatabase(fileData, newDbVersion,
             function (error, fileId) {

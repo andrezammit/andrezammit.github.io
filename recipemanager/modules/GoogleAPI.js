@@ -78,13 +78,25 @@ const GoogleAPI = (function () {
         gapi.client.drive.files.update({
             fileId: fileId,
             appProperties: appProperties,
-            media:
-            {
-                mimeType: 'application/zip',
-                body: fileData
-            },
-            fields: 'id'
-        }).then(onFileUpdated, onFileError);
+            fields: 'id',
+        }).then(onMetadataUpdated, onFileError);
+        
+        function onMetadataUpdated(response) {
+            let file = new Blob([fileData]); 
+
+            fetch(`https://www.googleapis.com/upload/drive/v3/files/${response.result.id}`, {
+                method: 'PATCH',
+                headers: new Headers({
+                    'Authorization': `Bearer ${gapi.client.getToken().access_token}`,
+                    'Content-Type': 'application/zip'
+                }),
+                body: file
+            }).then(
+                function () {
+                    onFileUpdated(response)
+                },
+                onFileError);
+        }
 
         function onFileUpdated(response) {
             let fileId = response.result.id;
@@ -160,7 +172,7 @@ const GoogleAPI = (function () {
 
     function createNewCalendar(callback) {
         let newCalendar = {
-            summary: "Recipe Manager - Debug",
+            summary: "Recipe Manager",
         };
 
         gapi.client.calendar.calendars.insert(
@@ -192,7 +204,8 @@ const GoogleAPI = (function () {
             for (let i = 0; i < calendars.length; i++) {
                 let calendar = calendars[i];
 
-                if (calendar.summary === "Recipe Manager - Debug") {
+                if (calendar.summary === "Recipe Manager" && 
+                    calendar.accessRole === "owner") {
                     callback(null, calendar.id);
                     return;
                 }

@@ -977,7 +977,7 @@ const RecipeManager = (function () {
 		var book = Engine.getBookById(section.bookId);
 		recipeDlg.find("#bookCtrl").val(book.name);
 
-		recipeDlg.find("#titleCtrl").val(recipe.name);
+		recipeDlg.find("#recipeTitleCtrl").val(recipe.name);
 		recipeDlg.find("#pageCtrl").val(recipe.page);
 		recipeDlg.find("#cookedCtrl").prop("checked", recipe.isCooked);
 		recipeDlg.find("#interestingCtrl").prop("checked", recipe.isInteresting);
@@ -1070,7 +1070,7 @@ const RecipeManager = (function () {
 	function onRecipeOKClick(id, recipe) {
 		var recipeDlg = $("#recipe");
 
-		recipe.name = recipeDlg.find("#titleCtrl").val();
+		recipe.name = recipeDlg.find("#recipeTitleCtrl").val();
 		recipe.page = recipeDlg.find("#pageCtrl").val();
 		recipe.isCooked = recipeDlg.find("#cookedCtrl").prop("checked");
 		recipe.isInteresting = recipeDlg.find("#interestingCtrl").prop("checked");
@@ -1096,7 +1096,7 @@ const RecipeManager = (function () {
 		var recipeDlg = $("#recipe");
 
 		recipeDlg.find("#cookedCtrl, #interestingCtrl, #ratingCtrl").attr("disabled", true);
-		recipeDlg.find("#titleCtrl, #pageCtrl, #commentCtrl").attr("readonly", true);
+		recipeDlg.find("#recipeTitleCtrl, #pageCtrl, #commentCtrl").attr("readonly", true);
 
 		recipeDlg.find(".btnEdit, .btnClose").show();
 		recipeDlg.find(".btnOK, .btnCancel").hide();
@@ -1111,14 +1111,14 @@ const RecipeManager = (function () {
 		var recipeDlg = $("#recipe");
 
 		recipeDlg.find("#cookedCtrl, #interestingCtrl, #ratingCtrl").removeAttr("disabled");
-		recipeDlg.find("#titleCtrl, #pageCtrl, #commentCtrl").removeAttr("readonly");
+		recipeDlg.find("#recipeTitleCtrl, #pageCtrl, #commentCtrl").removeAttr("readonly");
 
 		recipeDlg.find(".tagControl").children().removeAttr("disabled");
 
 		recipeDlg.find(".btnOK, .btnCancel").show();
 		recipeDlg.find(".btnEdit, .btnClose").hide();
 
-		recipeDlg.find("#titleCtrl").focus();
+		recipeDlg.find("#recipeTitleCtrl").focus();
 	}
 
 	function fillTagContainers() {
@@ -1204,7 +1204,7 @@ const RecipeManager = (function () {
 
 		var sectionDlg = $("#section");
 
-		sectionDlg.find("#titleCtrl").val(section.name);
+		sectionDlg.find("#sectionTitleCtrl").val(section.name);
 		checkTags(sectionDlg, section.tagIds);
 
 		var btnOK = sectionDlg.find(".btnOK");
@@ -1246,7 +1246,7 @@ const RecipeManager = (function () {
 	function resetSectionDlg() {
 		var sectionDlg = $("#section");
 
-		sectionDlg.find("#titleCtrl").attr("readonly", true);
+		sectionDlg.find("#sectionTitleCtrl").attr("readonly", true);
 
 		sectionDlg.find(".btnEdit, .btnClose").show();
 		sectionDlg.find(".btnOK, .btnCancel").hide();
@@ -1260,13 +1260,13 @@ const RecipeManager = (function () {
 	function onSectionEditClick() {
 		var sectionDlg = $("#section");
 
-		sectionDlg.find("#titleCtrl").removeAttr("readonly");
+		sectionDlg.find("#sectionTitleCtrl").removeAttr("readonly");
 		sectionDlg.find(".tagControl").children().removeAttr("disabled");
 
 		sectionDlg.find(".btnOK, .btnCancel").show();
 		sectionDlg.find(".btnEdit, .btnClose").hide();
 
-		sectionDlg.find("#titleCtrl").focus();
+		sectionDlg.find("#sectionTitleCtrl").focus();
 	}
 
 	function onSectionCloseClick() {
@@ -1320,7 +1320,7 @@ const RecipeManager = (function () {
 		}
 
 		var bookDlg = $("#book");
-		bookDlg.find("#titleCtrl").val(book.name);
+		bookDlg.find("#bookTitleCtrl").val(book.name);
 
 		var btnOK = bookDlg.find(".btnOK");
 		btnOK.off("click");
@@ -1347,7 +1347,7 @@ const RecipeManager = (function () {
 	function resetBookDlg() {
 		var bookDlg = $("#book");
 
-		bookDlg.find("#titleCtrl").attr("readonly", true);
+		bookDlg.find("#bookTitleCtrl").attr("readonly", true);
 
 		bookDlg.find(".btnEdit, .btnClose").show();
 		bookDlg.find(".btnOK, .btnCancel").hide();
@@ -1356,12 +1356,12 @@ const RecipeManager = (function () {
 	function onBookEditClick() {
 		var bookDlg = $("#book");
 
-		bookDlg.find("#titleCtrl").removeAttr("readonly");
+		bookDlg.find("#bookTitleCtrl").removeAttr("readonly");
 
 		bookDlg.find(".btnOK, .btnCancel").show();
 		bookDlg.find(".btnEdit, .btnClose").hide();
 
-		bookDlg.find("#titleCtrl").focus();
+		bookDlg.find("#bookTitleCtrl").focus();
 	}
 
 	function onBookCloseClick() {
@@ -1371,7 +1371,7 @@ const RecipeManager = (function () {
 
 	function onBookOKClick(id, book) {
 		var bookDlg = $("#book");
-		book.name = bookDlg.find("#titleCtrl").val();
+		book.name = bookDlg.find("#bookTitleCtrl").val();
 
 		showLoader();
 		Engine.updateBook(id, book, hideLoader);
@@ -1448,7 +1448,7 @@ const RecipeManager = (function () {
 		}
 
 		var tagDlg = $("#tag");
-		tagDlg.find("#titleCtrl").val(tag.name);
+		tagDlg.find("#tagTitleCtrl").val(tag.name);
 
 		var btnOK = tagDlg.find(".btnOK");
 		btnOK.off("click");
@@ -1475,7 +1475,7 @@ const RecipeManager = (function () {
 	function resetTagDlg() {
 		var tagDlg = $("#tag");
 
-		tagDlg.find("#titleCtrl").attr("readonly", true);
+		tagDlg.find("#tagTitleCtrl").attr("readonly", true);
 
 		tagDlg.find(".btnEdit, .btnClose").show();
 		tagDlg.find(".btnOK, .btnCancel").hide();
@@ -1484,12 +1484,12 @@ const RecipeManager = (function () {
 	function onTagEditClick() {
 		var tagDlg = $("#tag");
 
-		tagDlg.find("#titleCtrl").removeAttr("readonly");
+		tagDlg.find("#tagTitleCtrl").removeAttr("readonly");
 
 		tagDlg.find(".btnOK, .btnCancel").show();
 		tagDlg.find(".btnEdit, .btnClose").hide();
 
-		tagDlg.find("#titleCtrl").focus();
+		tagDlg.find("#tagTitleCtrl").focus();
 	}
 
 	function onTagCloseClick() {
@@ -1499,7 +1499,7 @@ const RecipeManager = (function () {
 
 	function onTagOKClick(id, tag) {
 		var tagDlg = $("#tag");
-		tag.name = tagDlg.find("#titleCtrl").val();
+		tag.name = tagDlg.find("#tagTitleCtrl").val();
 
 		showLoader();
 		Engine.updateTag(id, tag, hideLoader);
